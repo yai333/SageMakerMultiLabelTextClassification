@@ -1,0 +1,22 @@
+{
+  "name": "sagemakermultilabeltextclassification",
+  "version": "1.0.0",
+  "description": "Multi label text classification using the fastText with SageMaker BlazingText. Model is trained on the public dataset of [10% of Stack Overflow Q&A dataset](https://medium.com/r/?url=https%3A%2F%2Fwww.kaggle.com%2Fstackoverflow%2Fstacksample).",
+  "main": "index.js",
+  "dependencies": {
+    "serverless-pseudo-parameters": "^2.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yai333/SageMakerMultiLabelTextClassification.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yai333/SageMakerMultiLabelTextClassification/issues"
+  },
+  "homepage": "https://github.com/yai333/SageMakerMultiLabelTextClassification#readme"
+}

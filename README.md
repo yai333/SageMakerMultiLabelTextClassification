@@ -7,6 +7,12 @@ Model is trained on the public dataset of [10% of Stack Overflow Q&A dataset](ht
 
 - fastTextClassification.ipynb
 
+## Install node dependencies
+
+```
+npm Install
+```
+
 ## Deploy Serverless Api gateway
 
 ```

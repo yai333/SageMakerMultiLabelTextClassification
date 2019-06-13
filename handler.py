@@ -1,3 +1,8 @@
+try:
+  import unzip_requirements
+except ImportError:
+  pass
+
 import json
 import os
 import boto3
@@ -8,27 +13,28 @@ runtime= boto3.client('runtime.sagemaker')
 SAGEMAKER_ENDPOINT_NAME = os.environ['SAGEMAKER_ENDPOINT_NAME']
 
 def generateTag(event, context):
+    sentence=[]
     data = json.loads(event['body'])
-    sentence = data["sentence"]
-    sentence = clean_text(sentence)
+    raw_sentence = data["sentence"]
+    sentence.append(clean_text(raw_sentence))
+
     try:
-        tokenized_sentences = [' '.join(nltk.word_tokenize(sentence))]
-        payload = {"instances" : tokenized_sentences,"configuration": {"k":3}}
+        payload = {"instances" : sentence,"configuration": {"k":3}}
+
         response = runtime.invoke_endpoint(EndpointName=SAGEMAKER_ENDPOINT_NAME,
                                             ContentType='application/json',
-                                            Body=payload)
+                                            Body=json.dumps(payload))
 
         result = json.loads(response['Body'].read().decode())
         preb = []
-        for idx, val in enumerate(result["prediction"]):
-            print(val)
-            # preb.append([CATEGORIES[int(val[0])], val[1], val[2], val[3]])
-            # print('%s:%f '%(CATEGORIES[int(val[0])], val[1]), end='')
-
-        return {'statusCode': 200, 'body': json.dumps(preb)}
+        labels = []
+        for label in result[0]['label']:
+            labels.append(label[9:])
+        return {'statusCode': 200, 'body': json.dumps(labels)}
     except Exception as e:
+        print(e)
         return {'statusCode': 400,
-                'body': json.dumps({'error_message': 'Unable to get vehicle information.'})}
+                'body': json.dumps({'error_message': 'Unable to generate tag.'})}
 
 
 def clean_text(text):
