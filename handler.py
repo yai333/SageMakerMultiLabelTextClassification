@@ -3,7 +3,6 @@ import os
 import boto3
 import string
 import re
-from urllib.request import Request, urlopen
 
 runtime= boto3.client('runtime.sagemaker')
 SAGEMAKER_ENDPOINT_NAME = os.environ['SAGEMAKER_ENDPOINT_NAME']

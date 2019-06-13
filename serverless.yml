@@ -21,14 +21,16 @@ provider:
     - Effect: Allow
       Action:
         - sagemaker:InvokeEndpoint
-      Resource: arn:aws:sagemaker:ap-southeast-2::endpoint/blazingtext-2019-06-13-01-41-24-632
+      Resource: arn:aws:sagemaker:#{AWS::Region}:#{AWS::AccountId}:endpoint/blazingtext-2019-06-13-01-41-24-632
   environment:
     SAGEMAKER_ENDPOINT_NAME: "blazingtext-2019-06-13-01-41-24-632"
 
 package:
   exclude:
-    - node_modules/**
-    - "!node_modules/node-fetch/**"
+    - fastTextClassification.ipynb
+
+plugins:
+  - serverless-pseudo-parameters
 
 functions:
   generateTag:
